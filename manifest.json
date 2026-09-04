@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Recipe Master",
+  "description": "Finds the recipe, removes page clutter, and provides a clean recipe reader across recipe sites.",
+  "version": "0.1.0",
+  "minimum_chrome_version": "102",
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_title": "Recipe Master",
+    "default_popup": "src/popup/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "src/content/recipe-parser.js",
+        "src/content/site-rules.js",
+        "src/content/content.js"
+      ],
+      "css": [
+        "src/content/content.css"
+      ],
+      "run_at": "document_start",
+      "all_frames": false,
+      "world": "ISOLATED"
+    }
+  ]
+}

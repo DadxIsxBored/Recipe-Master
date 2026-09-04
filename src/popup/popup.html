@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recipe Master</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main>
+      <header class="app-header">
+        <div class="brand-mark" aria-hidden="true">RM</div>
+        <div>
+          <h1>Recipe Master</h1>
+          <p>Clean pages. Direct recipes.</p>
+        </div>
+      </header>
+
+      <section class="status-panel" aria-live="polite">
+        <div class="status-row">
+          <span id="status-dot" class="status-dot"></span>
+          <strong id="status-title">Checking this page</strong>
+        </div>
+        <p id="status-detail">Scanning for structured recipe data and recipe cards.</p>
+        <div id="status-stats" class="status-stats" hidden></div>
+      </section>
+
+      <section class="actions" aria-label="Recipe actions">
+        <button id="reader-button" class="primary" type="button" disabled>Clean recipe view</button>
+        <button id="jump-button" type="button" disabled>Jump to recipe</button>
+        <button id="clean-button" type="button" disabled>Clean page again</button>
+      </section>
+
+      <section class="settings-panel">
+        <h2>Page controls</h2>
+
+        <label class="setting site-setting">
+          <span>
+            <strong>Run on this site</strong>
+            <small id="site-name">Current site</small>
+          </span>
+          <input id="site-enabled" type="checkbox" checked>
+        </label>
+
+        <label class="setting">
+          <span>
+            <strong>Jump automatically</strong>
+            <small>Move directly to ingredients</small>
+          </span>
+          <input id="auto-jump" type="checkbox">
+        </label>
+
+        <label class="setting">
+          <span>
+            <strong>Clean automatically</strong>
+            <small>Process detected recipe pages</small>
+          </span>
+          <input id="auto-clean" type="checkbox">
+        </label>
+
+        <label class="setting">
+          <span>
+            <strong>Advertisements</strong>
+            <small>Hide ad containers and sticky ads</small>
+          </span>
+          <input id="clean-ads" type="checkbox">
+        </label>
+
+        <label class="setting">
+          <span>
+            <strong>Signup prompts</strong>
+            <small>Hide newsletter and marketing prompts</small>
+          </span>
+          <input id="clean-popups" type="checkbox">
+        </label>
+
+        <label class="setting">
+          <span>
+            <strong>Floating media</strong>
+            <small>Hide sticky and floating video players</small>
+          </span>
+          <input id="clean-floating-media" type="checkbox">
+        </label>
+
+        <label class="setting">
+          <span>
+            <strong>Smooth scrolling</strong>
+            <small>Animate jumps to the recipe</small>
+          </span>
+          <input id="smooth-scroll" type="checkbox">
+        </label>
+      </section>
+
+      <p class="boundary-note">Age checks, required consent, authentication, and paywalls remain in place.</p>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

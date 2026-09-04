@@ -1,0 +1,45 @@
+html.recipe-master-active [data-recipe-master-hidden="true"] {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  visibility: hidden !important;
+  width: 0 !important;
+}
+
+html.recipe-master-active [data-recipe-master-target="true"] {
+  scroll-margin-top: 24px !important;
+}
+
+html.recipe-master-active,
+html.recipe-master-active body {
+  overflow-y: auto !important;
+}
+
+#recipe-master-reader-host {
+  display: block !important;
+  height: auto !important;
+  inset: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: fixed !important;
+  visibility: visible !important;
+  width: auto !important;
+  z-index: 2147483647 !important;
+}
+
+html.recipe-master-reader-open,
+html.recipe-master-reader-open body {
+  overflow: hidden !important;
+}
+
+@media print {
+  html.recipe-master-reader-open body > :not(#recipe-master-reader-host) {
+    display: none !important;
+  }
+
+  #recipe-master-reader-host {
+    position: static !important;
+  }
+}

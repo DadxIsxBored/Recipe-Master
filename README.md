@@ -1,0 +1,56 @@
+# Recipe Master
+
+Recipe Master is a Manifest V3 extension for Brave and Chromium browsers. It detects recipe pages, hides page clutter, jumps to the recipe card, and can reconstruct ingredients and instructions in a clean reader.
+
+## Coverage model
+
+Detection runs on HTTP and HTTPS pages in this order:
+
+1. Schema.org `Recipe` data in JSON-LD, including nested `@graph` data.
+2. Shared recipe-card formats, including WP Recipe Maker, WP Tasty, Mediavine Create, EasyRecipe, Zip Recipes, and Schema.org microdata.
+3. Site-specific selectors for major food and drink publishers.
+4. Ingredient and instruction heading heuristics.
+5. Direct DOM extraction when structured recipe data is unavailable.
+
+The rule catalog includes the 150 priority food and drink domains from the project brief. Universal detection is not restricted to those domains.
+
+## Current features
+
+- Automatic jump to the ingredients section.
+- Repeated cleanup for ads or prompts inserted after page load.
+- Ad, newsletter, marketing popup, inline signup, and floating video suppression.
+- Per-site enable and disable control.
+- Separate toggles for automatic jumping, advertisements, prompts, floating media, and scroll behavior.
+- Clean recipe reader with ingredient checkboxes, grouped instructions, timing, yield, category, cuisine, nutrition, source attribution, and printing.
+- Drink-recipe fields for glassware, garnish, technique, equipment, and ABV when publishers supply them.
+- Preservation rules for age verification, authentication, paywalls, and required consent controls.
+
+## Install in Brave
+
+1. Open `brave://extensions`.
+2. Turn on **Developer mode**.
+3. Select **Load unpacked**.
+4. Select this repository folder.
+5. Reload recipe tabs that were open before installation.
+
+## Install in Chrome or Chromium
+
+1. Open `chrome://extensions`.
+2. Turn on **Developer mode**.
+3. Select **Load unpacked**.
+4. Select this repository folder.
+5. Reload recipe tabs that were open before installation.
+
+## Development checks
+
+```powershell
+npm test
+npm run check
+npm run test:browser
+```
+
+After changing extension files, use the extension page's reload control and reload the website tab under test.
+
+## Permissions
+
+The extension requests `storage` for settings. Content scripts run on HTTP and HTTPS pages so universal recipe detection can operate beyond a fixed domain list. Page processing occurs locally in the browser; this project has no server component.

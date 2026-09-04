@@ -2,10 +2,12 @@
   "name": "recipe-master-extension",
   "version": "0.1.0",
   "private": true,
-  "description": "Brave and Chromium extension for clean recipe pages.",
+  "description": "Cross-browser extension for clean recipe pages on desktop and supported mobile browsers.",
   "scripts": {
     "test": "node --test",
     "check": "node --check src/content/recipe-parser.js && node --check src/content/site-rules.js && node --check src/content/content.js && node --check src/popup/popup.js && node --check tests/browser-smoke.js && node --check tests/live-jsonld-check.js",
+    "lint:firefox": "npx --yes web-ext@10.6.0 lint",
+    "package": "npx --yes web-ext@10.6.0 build",
     "test:browser": "node tests/browser-smoke.js",
     "test:live": "node tests/live-jsonld-check.js"
   }

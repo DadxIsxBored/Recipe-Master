@@ -1,6 +1,6 @@
 # Recipe Master
 
-Recipe Master is a Manifest V3 extension for Brave and Chromium browsers. It detects recipe pages, hides page clutter, jumps to the recipe card, and can reconstruct ingredients and instructions in a clean reader.
+Recipe Master is a cross-browser Manifest V3 extension for Chromium, Firefox, and Safari Web Extensions. It detects recipe pages, hides page clutter, jumps to the recipe card, and can reconstruct ingredients and instructions in a clean reader.
 
 ## Coverage model
 
@@ -47,6 +47,8 @@ The rule catalog includes the 150 priority food and drink domains from the proje
 npm test
 npm run check
 npm run test:browser
+npm run lint:firefox
+npm run package
 ```
 
 After changing extension files, use the extension page's reload control and reload the website tab under test.
@@ -54,3 +56,7 @@ After changing extension files, use the extension page's reload control and relo
 ## Permissions
 
 The extension requests `storage` for settings. Content scripts run on HTTP and HTTPS pages so universal recipe detection can operate beyond a fixed domain list. Page processing occurs locally in the browser; this project has no server component.
+
+## Browser and mobile targets
+
+See [Browser and mobile support](docs/BROWSER_SUPPORT.md) for the complete compatibility matrix and Firefox Android or Safari iOS packaging instructions.

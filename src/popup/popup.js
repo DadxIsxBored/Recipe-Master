@@ -1,6 +1,7 @@
 (function initializePopup() {
   "use strict";
 
+  const extensionApi = globalThis.browser || globalThis.chrome;
   const DEFAULT_SETTINGS = Object.freeze({
     autoClean: true,
     autoJump: true,
@@ -37,7 +38,7 @@
       return null;
     }
     try {
-      return await chrome.tabs.sendMessage(activeTabId, { type, ...data });
+      return await extensionApi.tabs.sendMessage(activeTabId, { type, ...data });
     } catch (_error) {
       return null;
     }
@@ -95,11 +96,11 @@
   }
 
   async function loadSettings() {
-    const settings = await chrome.storage.sync.get(DEFAULT_SETTINGS);
+    const settings = await extensionApi.storage.sync.get(DEFAULT_SETTINGS);
     for (const [key, input] of Object.entries(controls)) {
       input.checked = Boolean(settings[key]);
       input.addEventListener("change", async () => {
-        await chrome.storage.sync.set({ [key]: input.checked });
+        await extensionApi.storage.sync.set({ [key]: input.checked });
       });
     }
   }
@@ -108,14 +109,14 @@
     if (!currentHost) {
       return;
     }
-    const stored = await chrome.storage.sync.get({ disabledHosts: [] });
+    const stored = await extensionApi.storage.sync.get({ disabledHosts: [] });
     const disabledHosts = new Set(Array.isArray(stored.disabledHosts) ? stored.disabledHosts : []);
     if (siteEnabled.checked) {
       disabledHosts.delete(currentHost);
     } else {
       disabledHosts.add(currentHost);
     }
-    await chrome.storage.sync.set({ disabledHosts: [...disabledHosts].sort() });
+    await extensionApi.storage.sync.set({ disabledHosts: [...disabledHosts].sort() });
     await sendToPage("SET_ENABLED", { enabled: siteEnabled.checked });
     renderStatus(await sendToPage("GET_STATUS"));
   });
@@ -137,7 +138,7 @@
 
   async function start() {
     await loadSettings();
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const [tab] = await extensionApi.tabs.query({ active: true, currentWindow: true });
     if (!tab || tab.id === undefined) {
       renderUnavailable();
       return;
@@ -146,5 +147,9 @@
     renderStatus(await sendToPage("GET_STATUS"));
   }
 
-  start().catch(renderUnavailable);
+  if (extensionApi) {
+    start().catch(renderUnavailable);
+  } else {
+    renderUnavailable();
+  }
 })();

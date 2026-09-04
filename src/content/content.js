@@ -1,9 +1,10 @@
 (function runRecipeMaster() {
   "use strict";
 
+  const extensionApi = globalThis.browser || globalThis.chrome;
   const parser = globalThis.RecipeMasterParser;
   const rules = globalThis.RecipeMasterRules;
-  if (!parser || !rules || globalThis.__recipeMasterLoaded) {
+  if (!extensionApi || !parser || !rules || globalThis.__recipeMasterLoaded) {
     return;
   }
   globalThis.__recipeMasterLoaded = true;
@@ -649,7 +650,7 @@
     };
   }
 
-  chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  extensionApi.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (!message || !message.type) {
       return false;
     }
@@ -697,7 +698,7 @@
     }
   });
 
-  chrome.storage.onChanged.addListener((changes, areaName) => {
+  extensionApi.storage.onChanged.addListener((changes, areaName) => {
     if (areaName !== "sync") {
       return;
     }
@@ -724,7 +725,7 @@
 
   async function initialize() {
     try {
-      state.settings = await chrome.storage.sync.get(DEFAULT_SETTINGS);
+      state.settings = await extensionApi.storage.sync.get(DEFAULT_SETTINGS);
     } catch (_error) {
       state.settings = { ...DEFAULT_SETTINGS };
     }

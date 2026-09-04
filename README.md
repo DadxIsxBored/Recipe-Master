@@ -53,6 +53,31 @@ npm run package
 
 After changing extension files, use the extension page's reload control and reload the website tab under test.
 
+## Mozilla reviewer build instructions
+
+The submitted extension contains the original readable JavaScript, HTML, CSS, and manifest files. No source file is transpiled, minified, concatenated, obfuscated, or generated during packaging. Mozilla's `web-ext` tool only copies the runtime files into a ZIP archive.
+
+Requirements:
+
+- Node.js 20 or newer.
+- npm with access to the official npm registry.
+
+From the repository root, run:
+
+```sh
+npm run package
+```
+
+This downloads `web-ext` version 10.6.0 from the official npm registry and creates `artifacts/recipe-master-0.1.0.zip`. No dependency is included in the extension. The package can be checked with:
+
+```sh
+npm test
+npm run check
+npm run lint:firefox
+```
+
+The release package was produced on Windows 11 with Node.js 22.23.2 and npm 10.9.8. The commands use cross-platform Node.js tooling and require no operating-system-specific build step.
+
 ## Permissions
 
 The extension requests `storage` for settings. Content scripts run on HTTP and HTTPS pages so universal recipe detection can operate beyond a fixed domain list. Page processing occurs locally in the browser; this project has no server component.
